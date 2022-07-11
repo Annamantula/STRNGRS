@@ -1,4 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+
+*{  background-color:rgb(255, 253, 250);
+    font-size: 32px;
+}
 form {
     display: block;
     margin-top: 0em;
   }
+  * {
+    box-sizing: border-box;
+}
+body {
+    background: #c4e0fa !important;
+    min-height: 100vh;
+    font-weight: bolder;
+    font-family: sans-serif;
+}
+h1,h2,h3 {
+    font-weight: 500;
+    font-family: sans-serif;
+}
+body, html, .App{
+    width: 100%;
+    height: 100%;
+}
+.navbar-light{
+    background-color: #ffffff;
+    box-shadow: 5px 14px 80px rgba(34,35,58,0.2);
+}
+.auth-wrapper {
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+}
+.auth-inner{
+    width: 450px;
+    margin: auto;
+    background: #ffffff;
+    box-shadow: 5px 14px 80px rgba(34,35,58,0.2);
+    padding: 40px 55px 45px 55px;
+    border-radius: 20px;
+    transition: all .3s;
+}

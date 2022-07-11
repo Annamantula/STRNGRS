@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import {App} from './components'
 import { 
     BrowserRouter, 
-    Routes, 
-    Route,
-    Link
+    // Routes, 
+    // Route,
+    // Link
 } from "react-router-dom";
 const root = ReactDOM.createRoot(
     document.getElementById('app')

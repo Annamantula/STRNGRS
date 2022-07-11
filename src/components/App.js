@@ -1,21 +1,29 @@
-import React from 'react'
-import { Route, Routes} from "react-router-dom"
-import {NavBar, Register, Login, Profile, Posts} from './'
+import React, {useState, useEffect} from 'react'
+import bootstrap from 'bootstrap';
+import {Routes, Route,Link } from "react-router-dom"
+import {NavBar, Register, Login, Logout, Profile, Posts} from './'
+import "./index.css";
+
+
 const App = () =>{
-    return (<>
+    const [postValue, setPostValue] = useState ('')
+    
+    return (
+    <div>
           <NavBar />
             <Routes>
-              <Route path = '/' element = {<div>Landing Page</div>}/>
-              <Route path = '/register' element = {<Register />}/>
-              <Route path = '/login' element = {<Login />}/>
-              <Route path = '/profile' element = {<Profile />}/>
-              <Route path = '/posts' element = {<Posts />}/>
+              <Route exact path = '/' element = {<div>Landing Page</div>}/>
+              <Route exact path = '/Register' element = {<Register />}/>
+              <Route exact path = '/Login' element = {<Login />}/>
+              <Route exact path = '/Logout' element = {<Logout />}/>
+              <Route exact path = '/Profile' element = {<Profile />}/>
+              <Route exact path = '/Posts' element = {<Posts postValue = {postValue} setPostValue = {setPostValue}/>}/>
             </Routes>
-        </>
+    </div>
     );
-}
+};
 
- export default App 
+ export default App; 
 
 
 
