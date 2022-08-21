@@ -1,23 +1,27 @@
 import React, {useState, useEffect} from 'react'
-import bootstrap from 'bootstrap';
-import {Routes, Route,Link } from "react-router-dom"
-import {NavBar, Register, Login, Logout, Profile, Posts} from './'
+import {Routes, Route, Link } from "react-router-dom"
+import {Register, Login, Message, Logout, Profile, Posts, NavBar,  } from './'
 import "./index.css";
 
 
 const App = () =>{
-    const [postValue, setPostValue] = useState ('')
+    const [posts, setPosts] = useState ('');
+    const [postValue, setPostValue] = useState ([])
+    const [messages, setMessages] = useState ([]);
     
     return (
     <div>
           <NavBar />
             <Routes>
-              <Route exact path = '/' element = {<div>Landing Page</div>}/>
               <Route exact path = '/Register' element = {<Register />}/>
               <Route exact path = '/Login' element = {<Login />}/>
+              <Route exact path = '/Profile' element = {<Profile messages = {messages} setMessages = {setMessages}/>}/>
+              <Route exact path = '/Posts' element = {<Posts posts = {posts} setPosts = {setPosts} postValue = {postValue} setPostValue = {setPostValue}/>}/>
+              <Route exact path = '/NewPost' element = {<NewPost/>}/>
+              <Route exact path = '/SearchPost' element = {<SearchPost/>}/>
+              <Route exact path = '/SinglePost' element = {<SinglePost/>}/>
+              <Route exact path = '//Message' element = {<Message/>}/>
               <Route exact path = '/Logout' element = {<Logout />}/>
-              <Route exact path = '/Profile' element = {<Profile />}/>
-              <Route exact path = '/Posts' element = {<Posts postValue = {postValue} setPostValue = {setPostValue}/>}/>
             </Routes>
     </div>
     );

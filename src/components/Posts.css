@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
-
+/* 
 .user-posts {
   padding: 1em;
   font-family: 'Libre Baskerville', serif;
@@ -30,8 +30,8 @@
   border-radius: 20px;
   transition: all .3s;
   /* display:flex; */
-  justify-content:center;
+  /* justify-content:center;
   flex-direction:column;
  
   
-}
+} */ 
