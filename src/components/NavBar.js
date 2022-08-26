@@ -14,7 +14,7 @@ export default function NavBar() {
         </div>
       </header>
       <div className="p-5 bg-light mb-4">
-        <h3 className="things">This is your "Stranger's Things"</h3>
+        <h3 className="things">Stranger's Things</h3>
         <nav className="d-flex">
           <h4 className="mb-0"></h4>
         </nav>
