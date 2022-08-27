@@ -1,24 +1,23 @@
-import React, {useState} from 'react';
-import { getPosts } from '../api';
+import React, { useState } from "react";
+import { getPosts } from "../api";
 
-const  SearchPost =({posts, setPosts, getPosts}) => {
-    const [searchData, setSearchData] =useState("");
+const SearchPost = ({ posts, setPosts, getPosts }) => {
+  const [searchData, setSearchData] = useState("");
 
-    const MatchingPosts = (post,text) =>{
-        const response = post.title.includes(text);
-        return response
+  const MatchingPosts = (post, text) => {
+    const response = post.title.includes(text);
+    return response;
+  };
+
+  const handleSubmit = () => {
+    const PostFilter = posts.filter((post) => MatchingPosts(post, searchData));
+    setPosts(PostFilter);
+    if (searchData.length) {
+      getPosts();
     }
-
-    const handleSubmit = () =>{
-        const PostFilter = posts.filter((post) => MatchingPosts(post,searchData));
-        setPosts(PostFilter);
-        if (searchData.length){
-            getPosts();
-        }
-    }
-     return (
-
-        <nav className="navbar navbar-expand-lg bg-light">
+  };
+  return (
+    <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
         <form
           id="search"
@@ -42,8 +41,6 @@ const  SearchPost =({posts, setPosts, getPosts}) => {
       </div>
     </nav>
   );
-}
+};
 
-
-
-export default SearchPost
+export default SearchPost;

@@ -1,53 +1,83 @@
-import React, {useState, useEffect} from 'react'
-import { getProfile, getUser } from '../api';
-import {Logout} from './'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { getProfile, getUser } from "../api";
+import { Message } from "./";
+import { Link } from "react-router-dom";
 
-const Profile = (props) =>{
-    let token = "";
-    const [myInfo, setMyInfo] = useState ({})
+const Profile = (props) => {
+  let token = "";
+  const [Info, setInfo] = useState({});
 
-    useEffect(() =>{
-     token = localStorage.getItem("token")
-     async function getInfo(){
-         const returnedInfo = await getProfile(token)
-         console.log (returnedInfo,"api> returned info")
-         setMyInfo(returnedInfo)
-     }
-     getInfo()
-    },[])
-    
-    const dataInfo = myInfo.data
-    const myData = dataInfo && dataInfo.length ? dataInfo.map((element, index, []) =>{
+  useEffect(() => {
+    token = localStorage.getItem("token");
+    async function getInfo() {
+      const returnedInfo = await getProfile(token);
+      console.log(returnedInfo, "api> returned info");
+      setInfo(returnedInfo);
+    }
+    getInfo();
+  }, []);
+
+  const dataInfo = Info.data;
+  const myData =
+    dataInfo && dataInfo.messages && dataInfo.messages.length ? (
+      dataInfo.messages.map((element, index, []) => {
         return (
-            <div>
-                <div key = {`Profile ${index}`}><button>
-                    <h1>{element.data.posts.messages}</h1>
-                    <h1>{element.posts.messages.content}</h1>
-                    </button>
-                 </div>
+          <div>
+            <div key={`Profile ${index}`}>
+              <h1>{element.data.posts.messages}</h1>
+              <h1>{element.posts.messages.content}</h1>
+              <h4>From: {element.fromUser.username}</h4>
+              <h4>Message: {element.content}</h4>
+              <h4>Response: {element.post.title}</h4>
             </div>
+          </div>
         );
+      })
+    ) : (
+      <h4>You have no messages</h4>
+    );
 
-    }):null;
+  // const [posts, setPosts] = useState([]);
 
-    // const [posts, setPosts] = useState([]);
+  // useEffect (() => {
+  //      getPosts.then ((response) =>{
+  //         setPosts (response.data.posts)
+  //     })
+  // },[])
+  return (
+    <>
+      <div className="box">
+        {Info.data ? (
+          <h2>Welcome {Info.data.username}</h2>
+        ) : (
+          <h2>Proceed to the Login page</h2>
+        )}
 
+        <Link to="/NewPost">
+          <button type="button" className="btn btn-link">
+            Create Post
+          </button>
+        </Link>
+        <Link to="/Posts">
+          <button type="button" className="btn btn-link">
+            All Posts
+          </button>
+        </Link>
+        <Link to="/Logout">
+          <button
+            id="btn2"
+            onClick={() => {
+              localStorage.removeItem("token");
+            }}
+          >
+            Logout
+          </button>
+        </Link>
 
-    // useEffect (() => {
-    //      getPosts.then ((response) =>{
-    //         setPosts (response.data.posts)
-    //     })
-    // },[])
-return (
-    <div className = "box">
-      <h2>Welcome to your Profile</h2>
-        <div id = "myData">{myData}<h3>My messages</h3></div>
-        <div id = "myPosts"><h3>My Posts</h3></div>
-      <Link to = '/Logout'> 
-        < button onClick={()=>{localStorage.removeItem("token");}}>Logout</button>
-      </Link>
-     </div>
-)
-}
+        <p>Messages:</p>
+        <div id="myData">{myData}</div>
+      </div>
+    </>
+  );
+};
 export default Profile;

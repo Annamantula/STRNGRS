@@ -1,49 +1,94 @@
-import { useEffect, useState} from "react";
-import { Routes, Route, Link, useNavigate} from "react-router-dom";
-import { getPosts} from "../api"
-// import { deletePosts} from "../api"
+import { useEffect, useState } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { DestroyPosts, getPosts } from "../api";
+import { Message, SearchPost } from "./";
 
-import './Posts.css'
+const Posts = ({ postValue, setPostValue }) => {
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const authToken = localStorage.getItem("token") ? true : false;
+  const catchId = (id) => {
+    setPostValue(id);
+    return postValue;
+  };
+  console.log(postValue, "here is your post");
 
-    const  Posts =({postValue, setPostValue}) => {
-      const [posts, setPosts] = useState([]);
-      const navigate = useNavigate();
-      const catchId = (id) => {
-          setPostValue(id)
-          return postValue
-      }
-      console.log (postValue, "here is your post")
+  useEffect(() => {
+    getPosts()
+      .then((response) => {
+        const posts = response.data.posts;
+        setPosts(posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  async function destroyPost(post_id) {
+    const token1 = localStorage.getItem("token");
+    const deleted = await DestroyPosts(token1, post_id);
+    navigate("/Posts");
+    return deleted;
+  }
 
-    useEffect (() => {
-         getPosts().then ((response) =>{
-             const posts = response.data.posts
-             setPosts (posts);
-            })
-            .catch((error) => {
-                console.log (error);
-            })
-    },[]);
-    
+  const postMapping = posts.map((post, index) => {
+    let postId = posts[index]._id;
+    return (
+      <div id="post-box" key={`posts${index}`}>
+        <h3>Author:{post.author.username}</h3>
+        <p>{post.author._id}</p>
+        <p className="post-title">Title:{post.title}</p>
+        <p className="footer-dscrptn">Description:{post.description}</p>
+        <p className="post-prc">Price:{post.price}</p>
+        <p className="post-lcn">Location:{post.location}</p>
+        <li>
+          <Message postId={postId} destroyPost={destroyPost} />
+        </li>
+        <li>
+          {authToken === true ? (
+            <button
+              onClick={() => {
+                catchId(post._id), destroyPost(post._id);
+              }}
+              type="button"
+              id="btn2"
+            >
+              {" "}
+              Delete Post
+            </button>
+          ) : (
+            <Link to="/Login">
+              <button id="btn2">Login to Interact With Posts</button>
+            </Link>
+          )}
+        </li>
+      </div>
+    );
+  });
 
-    const postMapping = posts.map((post,index)=> {
-        return (
-            <div id = "post-box" key = {`App${index}`}>
-                <h3>{post.author.username}</h3>
-                <p>{post.author._id}</p>
-                <p className="post-title">{post.title}</p>
-                <p className="footer-dscrptn">{post.description}</p>
-                <p className="post-prc">{post.price}</p>
-                <p className= "post-lcn">{post.location}</p>
-                <button onClick = {() =>{catchId(post._id), deletePost()}}>Delete</button>
-             </div>
-                )
-        })
-      return(
-        <div>
-             {postMapping}
-         </div>
-              
- )}                   
-        
+  return (
+    <div>
+      <nav class="navbar navbar-dark bg-dark">
+        <SearchPost
+          postMapping={postMapping}
+          posts={posts}
+          setPosts={setPosts}
+          id="srch"
+        />
+      </nav>
+      <h1>Welcome to Posts!</h1>
+
+      {authToken === true ? (
+        <Link to="/Profile">
+          <button id="btn2" type="btn" className="btn">
+            {" "}
+            Back to Profile{" "}
+          </button>
+        </Link>
+      ) : null}
+      {postMapping}
+    </div>
+  );
+};
+
 export default Posts;

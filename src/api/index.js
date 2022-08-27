@@ -4,27 +4,27 @@ const BASE_URL = `https://strangers-things.herokuapp.com/api/`;
 const COHORT_NAME = "2206-FTB-ET-WEB-FT";
 
 export const registerUser = async (username, password) => {
-  try{
-  // console.log("credentials", username, password);
-  // console.log(`${BASE_URL}${COHORT_NAME}/users/register`);
-  const response = await fetch(`${BASE_URL}${COHORT_NAME}/users/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password,
+  try {
+    // console.log("credentials", username, password);
+    // console.log(`${BASE_URL}${COHORT_NAME}/users/register`);
+    const response = await fetch(`${BASE_URL}${COHORT_NAME}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    }),
-  });
+      body: JSON.stringify({
+        user: {
+          username: username,
+          password: password,
+        },
+      }),
+    });
 
-  return response
-}catch(error){
-  throw error
-}
-}
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const loginUser = async (username, password) => {
   try {
@@ -41,6 +41,7 @@ export const loginUser = async (username, password) => {
       }),
     });
     const result = await response.json();
+    console.log(result, "resuuuultttt");
     const token = result.data.token;
     return token;
   } catch (error) {
@@ -52,7 +53,7 @@ export const getUser = async (authToken) => {
   try {
     const uData = {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`,
     };
     const response = await fetch(`${BASE_URL}${COHORT_NAME}/users/me`, {
       headers: uData,
@@ -68,7 +69,7 @@ export const getProfile = async (token) => {
   const response = await fetch(`${BASE_URL}${COHORT_NAME}/users/me`, {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   const result = await response.json();
@@ -112,35 +113,39 @@ export const addPosts = async (postDetail, token) => {
 };
 
 export const DestroyPosts = async (token, postId) => {
-  try{
-  const response = await fetch(`${BASE_URL}${COHORT_NAME}/posts/${postId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-      })
-  const result = await response.json();
+  try {
+    const response = await fetch(`${BASE_URL}${COHORT_NAME}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
     return result;
-    }catch(error){
-      console.error("Post can not be deleted", error)
-    }
+  } catch (error) {
+    console.error("Post can not be deleted", error);
   }
-  export async function sendMessage (token, postid, content){
-    const response = await fetch(`${BASE_URL}${COHORT_NAME}/posts/${postid}/messages`,{
+};
+export async function sendMessage(token, postid, content) {
+  const response = await fetch(
+    `${BASE_URL}${COHORT_NAME}/posts/${postid}/messages`,
+    {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }, 
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         message: {
           content: content,
-        }
-      })
-    }).then (resposne => response.json())
-      .then( result =>{
-        console.log (result, "Message");
-      })
-      .catch(console.error);
+        },
+      }),
     }
+  )
+    .then((resposne) => response.json())
+    .then((result) => {
+      console.log(result, "Message");
+    })
+    .catch(console.error);
+}

@@ -1,64 +1,73 @@
-import React, {useState} from 'react';
-import {loginUser} from '../api';
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router";
+import { loginUser } from "../api";
 
- const Login = (props)=>{
-
-    const [username, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    let navigateTo = useNavigate();
-
-    const handleOnChange = (event) =>{
-        const updated  = event.target.id
-        if (updated === 'username') {
-            console.log(username, "assigned name")
-            setUserName(event.target.value)
-        
-        }else{
-            console.log(password, "assigned password")
-            setPassword(event.target.value)   
-        }
+function Login({
+  setUsername,
+  setPassword,
+  username,
+  password,
+  setIsLoggedIn,
+}) {
+  let navigate = useNavigate();
+  const handleOnChange = (event) => {
+    const input = event.target.id;
+    if (input === "username") {
+      setUsername(event.target.value);
+    } else {
+      setPassword(event.target.value);
     }
-    
-    const handleSubmit = async(event) => {
-        // try{
-        event.preventDefault()
-        const token = await loginUser(username,password)
-           console.log (username,password, "assigned username & pw")
-        // const result = await loginUser(username,password);
-        // const token = result.data.token
-        
-            console.log(token, "login token")
-        localStorage.setItem("token",token)
-        navigateTo ("/Profile")
+  };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = await loginUser(username, password);
+    if (token) {
+      setIsLoggedIn(true);
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      setUsername(username);
+      navigate("/Posts");
+    }
+  };
+  const registerButton = async (event) => {
+    event.preventDefault();
+    navigate("/Register");
+  };
 
-    //     const tokenFromStrg = localStorage.getItem("token here")
-    //     console.log("tokenFromStrg", tokenFromStrg)
-    //     //  const token = await loginUser(username, password)
-        // }catch(err){}
-    };
- return (<>
-          <form action="/action_page.php" onSubmit = {handleSubmit}>
-            <label> Username:</label><br></br>
-            <input 
-            type="text" id="username" 
-            onChange={handleOnChange} 
-            placeholder="User Name"
-            value = {username}
-            /><br></br>
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h1 className="LoginTxt">Login here</h1>
+        <label className="inputLabels">
+          Username
+          <input
+            id="username"
+            type="text"
+            placeholder="Your Username Here"
+            value={username}
+            onChange={handleOnChange}
+          />
+        </label>
+        <label className="inputLabels1">
+          Password
+          <input
+            id="password"
+            type="text"
+            placeholder="Your Password Here"
+            value={password}
+            onChange={handleOnChange}
+          />
+        </label>
+        <button id="btn2" type="Submit">
+          Submit
+        </button>
+        <button id="btn2" type="Submit" onClick={registerButton}>
+          Create account
+        </button>
+      </form>
+    </div>
+  );
+}
 
-             <label>Password:</label><br></br>
-             <input 
-             id="password"
-             onChange={handleOnChange}
-             placeholder="Password"
-             value = {password}
-             type="text"
-             /><br></br>
-             <input type="submit" value="Login"></input>
-          </form>
-         </>)
-        }
-
- export default Login;
+export default Login;
