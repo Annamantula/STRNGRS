@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import {
   Register,
   Login,
@@ -12,6 +12,7 @@ import {
   SearchPost,
   Home,
 } from "./";
+import { getPosts } from "../api";
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -22,6 +23,13 @@ const App = () => {
   const [postValue, setPostValue] = useState([]);
   const [messages, setMessages] = useState([]);
 
+  // async function getPosts(){
+  //   const fetchPosts = await getPosts();
+  //   setPosts(getPosts)
+  // };
+  useEffect(() =>{
+    getPosts();
+  },[])
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setIsLoggedIn(true);
@@ -40,7 +48,13 @@ const App = () => {
       <div>
         {isLoggedIn ? (
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route exact 
+            path="/Home" 
+            element={
+            <Home 
+            />
+            } 
+            />
             <Route
               exact
               path="/Profile"
@@ -67,29 +81,41 @@ const App = () => {
                 />
               }
             />
-            <Route exact path="/NewPost" element={<NewPost />} />
+             <Route
+                exact
+                path="/NewPost"
+                element={
+                  <NewPost
+                    posts={posts}
+                    setPosts={setPosts}
+                    postValue={postValue}
+                    setPostValue={setPostValue}
+                  />
+                }
+              />
             <Route exact path="/SearchPost" element={<SearchPost />} />
-            <Route exact path="//Message" element={<Message />} />
+            <Route  
+                exact 
+                path="/Message"  
+                   element={
+                      <Message
+                      messages ={messages}
+                      setMessages = {setMessages}
+                    />
+                  }
+              />
             <Route exact path="/Logout" element={<Logout />} />
           </Routes>
         ) : (
           <div>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route
-                exact
-                path="/Profile"
-                element={
-                  <Profile
-                    Info={Info}
-                    setInfo={setInfo}
-                    username={username}
-                    messages={messages}
-                    setMessages={setMessages}
-                    setIsLoggedIn={setIsLoggedIn}
-                  />
-                }
-              />
+            <Route exact 
+            path="/Home" 
+            element={
+            <Home 
+            />
+            } 
+            />
               <Route
                 exact
                 path="/Login"
@@ -121,6 +147,18 @@ const App = () => {
                 path="/Posts"
                 element={
                   <Posts
+                    posts={posts}
+                    setPosts={setPosts}
+                    postValue={postValue}
+                    setPostValue={setPostValue}
+                  />
+                }
+              />
+            <Route
+                exact
+                path="/NewPost"
+                element={
+                  <NewPost
                     posts={posts}
                     setPosts={setPosts}
                     postValue={postValue}

@@ -68,6 +68,7 @@ const Posts = ({ postValue, setPostValue }) => {
 
   return (
     <div>
+      <h1 id ="welcome">Welcome to Posts!</h1>
       <nav class="navbar navbar-dark bg-dark">
         <SearchPost
           postMapping={postMapping}
@@ -76,7 +77,7 @@ const Posts = ({ postValue, setPostValue }) => {
           id="srch"
         />
       </nav>
-      <h1>Welcome to Posts!</h1>
+      
 
       {authToken === true ? (
         <Link to="/Profile">

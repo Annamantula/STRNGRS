@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addPosts } from "../api";
 
-const NewPost = () => {
-  const navigate = useNavigate();
-
+const NewPost = ({setPost,posts}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [willDeliver, setwillDeliver] = useState(false);
+  const navigate = useNavigate();
+
+  // const handleOnChange=()=>{
+  //   setwillDeliver(!willDeliver)
+  // }
 
   const authToken = localStorage.getItem("token") ? true : false;
 
-  async function handleSubmit(e) {
+  const handleSubmit =  async (e) =>{
     e.preventDefault();
     const token = localStorage.getItem("token");
 
@@ -24,7 +27,7 @@ const NewPost = () => {
       location: location,
       willDeliver: willDeliver,
     };
-    // const token = localStorage.getItem("token");
+
     const response = await addPosts({
       title: title,
       description: description,
@@ -46,11 +49,11 @@ const NewPost = () => {
 
   return (
     <div className="card" style="width: 18rem;">
-      <img
+      {/* <img
         src="https://cdn.shopify.com/s/files/1/1117/3536/products/Bracelet_900x.jpg?v=1626208340"
-        class="card-img-top"
+        className="card-img-top"
         alt="jewelery"
-      />
+      /> */}
       <div className="card-body">
         {authToken === true ? (
           <>

@@ -11,15 +11,6 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   let navigateTo = useNavigate();
 
-  // const handleOnChange = (event) =>{
-  //     const updated  = event.target.id
-  //     if (updated === 'username') {
-  //         setUserName(event.target.value)
-  //     }else{
-  //         setPassword(event.target.value)
-  //     }
-  // }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -28,18 +19,19 @@ const Register = () => {
       console.log(token, "register token");
       localStorage.setItem("token", token);
       navigateTo("/Login");
+      
 
-      // const tokenFromStrg = localStorage.getItem("token")
-      // console.log("tokenFromStrg", tokenFromStrg)
+      const tokenFromStrg = localStorage.getItem("token")
+      console.log("tokenFromStrg", tokenFromStrg)
 
-      //     //  const token = await loginUser(username, password)
     } catch (err) {}
   };
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h1 id="inpt2">Register</h1>
-        <label> Username:</label>
+        <label id="LoginTxt">Register</label>
+        <div>
+        <label  id="inpt2"> Username:</label>
         <br></br>
         <input
           id="inpt2"
@@ -50,7 +42,7 @@ const Register = () => {
         ></input>
         <br></br>
 
-        <label>Password:</label>
+        <label  id="inpt2">Password:</label>
         <br></br>
         <input
           id="inpt2"
@@ -60,7 +52,7 @@ const Register = () => {
         ></input>
         <br></br>
 
-        <label>Confirm Password:</label>
+        <label  id="inpt2">Confirm Password:</label>
         <br></br>
         <input
           id="inpt2"
@@ -69,8 +61,8 @@ const Register = () => {
           placeholder="Confirm Password"
         ></input>
         <br></br>
-
         <input id="btn3" type="submit" value="Register"></input>
+        </div>
       </form>
     </>
   );

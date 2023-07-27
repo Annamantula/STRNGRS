@@ -4,9 +4,6 @@ import {App} from './components'
 
 import { 
     BrowserRouter, 
-    // Routes, 
-    // Route,
-    // Link
 } from "react-router-dom";
 const root = ReactDOM.createRoot(
     document.getElementById('app')

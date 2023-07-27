@@ -36,41 +36,23 @@ const Profile = (props) => {
     ) : (
       <h4>You have no messages</h4>
     );
-
-  // const [posts, setPosts] = useState([]);
-
-  // useEffect (() => {
-  //      getPosts.then ((response) =>{
-  //         setPosts (response.data.posts)
-  //     })
-  // },[])
   return (
     <>
       <div className="box">
         {Info.data ? (
           <h2>Welcome {Info.data.username}</h2>
         ) : (
-          <h2>Proceed to the Login page</h2>
+          <h2></h2>
         )}
 
         <Link to="/NewPost">
-          <button type="button" className="btn btn-link">
+          <button type="button" id="pst" className="btn btn-link">
             Create Post
           </button>
         </Link>
         <Link to="/Posts">
-          <button type="button" className="btn btn-link">
+          <button type="button" id="pst" className="btn btn-link">
             All Posts
-          </button>
-        </Link>
-        <Link to="/Logout">
-          <button
-            id="btn2"
-            onClick={() => {
-              localStorage.removeItem("token");
-            }}
-          >
-            Logout
           </button>
         </Link>
 
