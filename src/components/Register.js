@@ -36,7 +36,6 @@ const Register = () => {
         <input
           id="inpt2"
           type="text"
-          // onChange={handleOnChange}
           onChange={(event) => setNewUserName(event.target.value)}
           placeholder="New User Name"
         ></input>

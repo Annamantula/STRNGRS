@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getProfile, getUser } from "../api";
-import { Message } from "./";
 import { Link } from "react-router-dom";
 
 const Profile = (props) => {

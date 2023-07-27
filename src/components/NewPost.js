@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addPosts } from "../api";
 
-const NewPost = ({setPost,posts}) => {
+const NewPost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [willDeliver, setwillDeliver] = useState(false);
   const navigate = useNavigate();
-
-  // const handleOnChange=()=>{
-  //   setwillDeliver(!willDeliver)
-  // }
 
   const authToken = localStorage.getItem("token") ? true : false;
 
@@ -49,11 +45,6 @@ const NewPost = ({setPost,posts}) => {
 
   return (
     <div className="card" style="width: 18rem;">
-      {/* <img
-        src="https://cdn.shopify.com/s/files/1/1117/3536/products/Bracelet_900x.jpg?v=1626208340"
-        className="card-img-top"
-        alt="jewelery"
-      /> */}
       <div className="card-body">
         {authToken === true ? (
           <>

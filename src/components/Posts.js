@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DestroyPosts, getPosts } from "../api";
 import { Message, SearchPost } from "./";
 
@@ -77,7 +77,6 @@ const Posts = ({ postValue, setPostValue }) => {
           id="srch"
         />
       </nav>
-      
 
       {authToken === true ? (
         <Link to="/Profile">

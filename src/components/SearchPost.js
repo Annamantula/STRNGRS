@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getPosts } from "../api";
 
+
 const SearchPost = ({ posts, setPosts, getPosts }) => {
   const [searchData, setSearchData] = useState("");
 

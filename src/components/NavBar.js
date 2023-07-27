@@ -24,7 +24,6 @@ function NavBar({
         <span className="headerLogo">
           <img src="S.T.jpg" alt="logo" className="logotoo" />
         </span>
-          {/* <h3 className="things">Stranger's Things</h3> */}
           <nav className="d-flex">
             <h4 className="mb-0"></h4>
           </nav>

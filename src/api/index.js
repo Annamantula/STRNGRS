@@ -5,8 +5,6 @@ const COHORT_NAME = "2206-FTB-ET-WEB-FT";
 
 export const registerUser = async (username, password) => {
   try {
-    // console.log("credentials", username, password);
-    // console.log(`${BASE_URL}${COHORT_NAME}/users/register`);
     const response = await fetch(`${BASE_URL}${COHORT_NAME}/users/register`, {
       method: "POST",
       headers: {
@@ -90,21 +88,21 @@ export const getPosts = async () => {
 
 export const addPosts = async (postDetail, token) => {
   const response = await fetch(`${BASE_URL}${COHORT_NAME}/posts`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      post: {
-        title: postDetail.title,
-        description: postDetail.description,
-        price: postDetail.price,
-        location: postDetail.location,
-        willDeliver: postDetail.willDeliver,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    }),
-  })
+      body: JSON.stringify({
+        post: {
+          title: postDetail.title,
+          description: postDetail.description,
+          price: postDetail.price,
+          location: postDetail.location,
+          willDeliver: postDetail.willDeliver,
+        },
+      }),
+    })
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
@@ -129,20 +127,19 @@ export const DestroyPosts = async (token, postId) => {
 };
 export async function sendMessage(token, postid, content) {
   const response = await fetch(
-    `${BASE_URL}${COHORT_NAME}/posts/${postid}/messages`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        message: {
-          content: content,
+      `${BASE_URL}${COHORT_NAME}/posts/${postid}/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      }),
-    }
-  )
+        body: JSON.stringify({
+          message: {
+            content: content,
+          },
+        }),
+      }
+    )
     .then((resposne) => response.json())
     .then((result) => {
       console.log(result, "Message");

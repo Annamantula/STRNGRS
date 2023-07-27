@@ -22,11 +22,7 @@ const App = () => {
   const [posts, setPosts] = useState("");
   const [postValue, setPostValue] = useState([]);
   const [messages, setMessages] = useState([]);
-
-  // async function getPosts(){
-  //   const fetchPosts = await getPosts();
-  //   setPosts(getPosts)
-  // };
+  
   useEffect(() =>{
     getPosts();
   },[])
